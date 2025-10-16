@@ -333,20 +333,7 @@ public class Stockmate {
     }
 
     // ================= View All Items =================
-    private static void displayAllItems(JFrame parent){
-        JFrame frame = new JFrame("All Items");
-        frame.setSize(700,400); frame.setLocationRelativeTo(parent);
-
-        String[] columns = {"Item ID","Name","Category","Subcategory","Quantity","Box No"};
-        DefaultTableModel model = new DefaultTableModel(columns,0);
-        JTable table = new JTable(model);
-
-        List<String[]> items = DBHelper.getAllItems();
-        for(String[] row: items) model.addRow(row);
-
-        frame.add(new JScrollPane(table));
-        frame.setVisible(true);
-    }
+  
 
     // ================= Button Styling =================
     private static void styleButton(JButton button, Color base, Color hover){
@@ -362,6 +349,7 @@ public class Stockmate {
     }
 
 }
+
 
 
 
