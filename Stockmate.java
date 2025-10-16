@@ -55,7 +55,55 @@ public class Stockmate {
 
     // ================= Login Window =================
 
+      private static void openLoginWindow(JFrame parent, String role) {
+        JFrame loginFrame = new JFrame(role + " Login");
+        loginFrame.setSize(400, 300);
+        loginFrame.setLocationRelativeTo(parent);
 
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(245, 250, 255));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        JLabel title = new JLabel(role + " Login");
+        title.setFont(new Font("Serif", Font.BOLD, 28));
+        title.setForeground(new Color(25, 25, 112));
+        gbc.gridx=0; gbc.gridy=0; gbc.gridwidth=2;
+        panel.add(title, gbc);
+
+        gbc.gridwidth=1; gbc.anchor=GridBagConstraints.WEST;
+
+        gbc.gridx=0; gbc.gridy=1; panel.add(new JLabel("Email:"), gbc);
+        gbc.gridx=1; JTextField emailField = new JTextField(15); panel.add(emailField, gbc);
+
+        gbc.gridx=0; gbc.gridy=2; panel.add(new JLabel("Password:"), gbc);
+        gbc.gridx=1; JPasswordField passwordField = new JPasswordField(15); panel.add(passwordField, gbc);
+
+        JButton loginBtn = new JButton("Login");
+        styleButton(loginBtn, new Color(70, 130, 180), new Color(100, 149, 237));
+        gbc.gridx=0; gbc.gridy=3; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER;
+        panel.add(loginBtn, gbc);
+
+        loginBtn.addActionListener(e -> {
+            String email = emailField.getText().trim();
+            String pass = new String(passwordField.getPassword()).trim();
+            if(role.equals("Admin")) {
+                if(email.equals("risvananasrincv@gmail.com") && pass.equals("risvana1288")) {
+                    JOptionPane.showMessageDialog(loginFrame,"Admin login successful!");
+                    loginFrame.dispose(); openAdminDashboard(parent);
+                } else JOptionPane.showMessageDialog(loginFrame,"Invalid Admin credentials!");
+            } else {
+                if(email.endsWith("@gmail.com")) {
+                    JOptionPane.showMessageDialog(loginFrame,"User login successful!");
+                    loginFrame.dispose(); openUserDashboard(parent);
+                } else JOptionPane.showMessageDialog(loginFrame,"Invalid User email! Must be Gmail.");
+            }
+        });
+
+        loginFrame.add(panel);
+        loginFrame.setVisible(true);
+    }
     // ================= Admin Dashboard =================
     private static void openAdminDashboard(JFrame parent) {
         JFrame adminFrame = new JFrame("Admin Dashboard");
@@ -314,3 +362,4 @@ public class Stockmate {
     }
 
 }
+
