@@ -349,7 +349,20 @@ public class Stockmate {
             }
 
     // ================= Button Styling =================
-   
+   private static void styleButton(JButton button, Color base, Color hover){
+        button.setBackground(base); button.setForeground(Color.WHITE);
+        button.setFont(new Font("Arial",Font.BOLD,16));
+        button.setFocusPainted(false); button.setBorderPainted(false); button.setOpaque(true);
+
+        Color original = base;
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){ button.setBackground(hover); }
+            public void mouseExited(java.awt.event.MouseEvent evt){ button.setBackground(original); }
+        });
+    }
+
+}
+
 
 
 
