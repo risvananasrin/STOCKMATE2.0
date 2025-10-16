@@ -298,7 +298,39 @@ public class Stockmate {
     }
 
     // ================= Search Item =================
-    
+    private static void openSearchItemWindow(JFrame parent){
+        JFrame frame = new JFrame("Search Item");
+        frame.setSize(400,250); frame.setLocationRelativeTo(parent);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(245,250,255));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10); gbc.anchor=GridBagConstraints.WEST;
+
+        JLabel title = new JLabel("Search Item");
+        title.setFont(new Font("Serif", Font.BOLD,28)); title.setForeground(new Color(25,25,112));
+        gbc.gridx=0; gbc.gridy=0; gbc.gridwidth=2; panel.add(title,gbc);
+
+        gbc.gridwidth=1; gbc.gridx=0; gbc.gridy=1; panel.add(new JLabel("Item ID:"),gbc);
+        gbc.gridx=1; JTextField itemField = new JTextField(15); panel.add(itemField,gbc);
+
+        JButton searchBtn = new JButton("Search"); styleButton(searchBtn,new Color(255,140,0), new Color(255,165,0));
+        gbc.gridx=0; gbc.gridy=2; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(searchBtn,gbc);
+
+        searchBtn.addActionListener(e -> {
+            String id = itemField.getText().trim();
+            if(!id.isEmpty()){
+                String[] item = DBHelper.getItemById(id);
+                if(item!=null){
+                    JOptionPane.showMessageDialog(frame,
+                            "Item ID: "+item[0]+"\nName: "+item[1]+"\nCategory: "+item[2]+
+                                    "\nSubcategory: "+item[3]+"\nQuantity: "+item[4]+"\nBox No: "+item[5]);
+                } else JOptionPane.showMessageDialog(frame,"Item not found!");
+            } else JOptionPane.showMessageDialog(frame,"Enter Item ID!");
+        });
+
+        frame.add(panel); frame.setVisible(true);
+    }
 
     // ================= View All Items =================
     private static void displayAllItems(JFrame parent){
@@ -330,6 +362,7 @@ public class Stockmate {
     }
 
 }
+
 
 
 
