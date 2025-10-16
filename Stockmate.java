@@ -182,7 +182,51 @@ public class Stockmate {
     }
 
     // ================= Add Item Form =================
+    private static void openItemForm(JFrame parent, String titleText) {
+        JFrame frame = new JFrame(titleText);
+        frame.setSize(500,400); frame.setLocationRelativeTo(parent);
 
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(245,250,255));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets=new Insets(10,10,10,10); gbc.anchor=GridBagConstraints.WEST;
+
+        JLabel title = new JLabel(titleText);
+        title.setFont(new Font("Serif", Font.BOLD,28)); title.setForeground(new Color(25,25,112));
+        gbc.gridx=0; gbc.gridy=0; gbc.gridwidth=2; panel.add(title,gbc);
+
+        String[] labels = {"Item ID:","Item Name:","Category:","Subcategory:","Quantity:","Box Number:"};
+        JTextField[] fields = new JTextField[labels.length];
+        gbc.gridwidth=1;
+
+        for(int i=0;i<labels.length;i++){
+            gbc.gridx=0; gbc.gridy=i+1; panel.add(new JLabel(labels[i]),gbc);
+            gbc.gridx=1; fields[i] = new JTextField(15); panel.add(fields[i],gbc);
+        }
+
+        JButton actionBtn = new JButton(titleText); styleButton(actionBtn,new Color(70,130,180), new Color(100,149,237));
+        gbc.gridx=0; gbc.gridy=labels.length+1; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER;
+        panel.add(actionBtn,gbc);
+
+        actionBtn.addActionListener(e -> {
+            try {
+                String itemId = fields[0].getText().trim();
+                String name = fields[1].getText().trim();
+                String category = fields[2].getText().trim();
+                String subcategory = fields[3].getText().trim();
+                int quantity = Integer.parseInt(fields[4].getText().trim());
+                String box = fields[5].getText().trim();
+
+                if(titleText.equals("Add New Item")){
+                    if(DBHelper.addItem(itemId,name,category,subcategory,quantity,box))
+                        JOptionPane.showMessageDialog(panel,"Item added successfully!");
+                    else JOptionPane.showMessageDialog(panel,"Error adding item. Maybe ID exists.");
+                }
+            } catch(NumberFormatException ex){ JOptionPane.showMessageDialog(panel,"Quantity must be a number!"); }
+        });
+
+        frame.add(panel); frame.setVisible(true);
+    }
 
     // ================= Update Item Form =================
     private static void openUpdateItemForm(JFrame parent) {
@@ -318,6 +362,7 @@ public class Stockmate {
     }
 
 }
+
 
 
 
