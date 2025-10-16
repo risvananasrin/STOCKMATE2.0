@@ -151,35 +151,7 @@ public class Stockmate {
     }
 
     // ================= User Dashboard =================
-    private static void openUserDashboard(JFrame parent) {
-        JFrame userFrame = new JFrame("User Dashboard");
-        userFrame.setSize(400,300);
-        userFrame.setLocationRelativeTo(parent);
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(new Color(245,250,255));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx=0; gbc.gridy=GridBagConstraints.RELATIVE;
-        gbc.insets=new Insets(15,0,15,0); gbc.anchor=GridBagConstraints.CENTER;
-
-        JLabel title = new JLabel("User Dashboard");
-        title.setFont(new Font("Serif", Font.BOLD,32)); title.setForeground(new Color(25,25,112));
-        panel.add(title,gbc);
-
-        JButton searchBtn = new JButton("View/Search Item");
-        styleButton(searchBtn,new Color(255,140,0), new Color(255,165,0));
-        searchBtn.setPreferredSize(new Dimension(200,45));
-        panel.add(searchBtn,gbc);
-        searchBtn.addActionListener(e -> openSearchItemWindow(userFrame));
-
-        JButton viewAllBtn = new JButton("View All Items");
-        styleButton(viewAllBtn,new Color(128,0,128), new Color(186,85,211));
-        viewAllBtn.setPreferredSize(new Dimension(200,45));
-        panel.add(viewAllBtn,gbc);
-        viewAllBtn.addActionListener(e -> displayAllItems(userFrame));
-
-        userFrame.add(panel); userFrame.setVisible(true);
-    }
 
     // ================= Add Item Form =================
     private static void openItemForm(JFrame parent, String titleText) {
@@ -362,4 +334,5 @@ public class Stockmate {
     }
 
 }
+
 
